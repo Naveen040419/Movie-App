@@ -61,7 +61,7 @@ class MovieList extends Component{
      // Arrow function to retain the context of 'this'
     // Arrow functions do not have their own 'this', 
     // they use the 'this' from the surrounding lexical context
-    addStars = () =>{
+    addStars = (movie) =>{
 
         // form1 : Using a function inside setState to get the previous state
         // and return the updated state...
@@ -72,24 +72,53 @@ class MovieList extends Component{
 
         // form2 : Using object directly inside setState
 
-        if( this.state.stars <=5 ) return;
+        // if( this.state.stars <=5 ) return;
 
-        this.setState( (prevState)=> {
-            return {
-                stars: prevState.stars + 0.5
-            }
+        // this.setState( (prevState)=> {
+        //     return {
+        //         stars: prevState.stars + 0.5
+        //     }
+        // })
+
+        const { movies } = this.state;
+
+        const movieId = movies.indexOf( movie );
+
+        if( movies[movieId].stars >=5 ) return;
+
+        // movies[0].stars =  0.5;
+
+        movies[movieId].stars += 0.5;
+
+        // movies -> state, movies -> local variable(Destructured)
+        this.setState({
+            movies : movies
         })
     }
 
     subStars = ()=>{
 
-        if( this.state.stars <=0 ) return;
+        // if( this.state.stars <=0 ) return;
 
-        this.setState( (prevState)=>{
-            return{
-                stars: prevState.stars - 0.5
-            },
-            () => { console.log("stars: ", this.state.stars)}
+        // this.setState( (prevState)=>{
+        //     return{
+        //         stars: prevState.stars - 0.5
+        //     },
+        //     () => { console.log("stars: ", this.state.stars)}
+        // })
+
+        const { movies } = this.state;
+
+        const movieId = movies.indexOf( movie );
+
+        if( movies[movieId].stars <=0 ) return;
+
+        // movies[0].stars =  0.5;
+
+        movies[movieId].stars -= 0.5;
+
+        this.setState({
+            movies : movies
         })
     }
 
@@ -117,7 +146,7 @@ class MovieList extends Component{
             { /* Iterating over the movies array using map function */}
             {
               movies.map( (movie) => (
-                <MovieCard data = {movie} />
+                <MovieCard data = {movie} increaseStar = {this.addStars} decreaseStar = {this.subStars} />
               ))  
             }
             </>

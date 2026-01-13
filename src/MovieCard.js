@@ -32,7 +32,7 @@ class MovieCard extends Component{
                     <div className="star-dis"> 
                     <img className="str-btn" 
                     src="https://cdn-icons-png.flaticon.com/128/4721/4721635.png" 
-                    onClick={this.addStars}
+                    onClick={ () => {this.props.increaseStar(this.props.data)} }
                     alt="increase"/>  
 
                     <img src="https://cdn-icons-png.flaticon.com/512/616/616489.png" 
@@ -40,7 +40,7 @@ class MovieCard extends Component{
 
                     <img className="str-btn" 
                     src="https://cdn-icons-png.flaticon.com/128/4721/4721635.png"
-                    onClick = {this.subStars}
+                    onClick = { () => {this.props.decreaseStar(this.props.data)} }
                     alt="decrease"/>
 
                     <span className="starCount"> {stars} </span>
