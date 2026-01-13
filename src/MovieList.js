@@ -58,6 +58,54 @@ class MovieList extends Component{
         }
     }
 
+     // Arrow function to retain the context of 'this'
+    // Arrow functions do not have their own 'this', 
+    // they use the 'this' from the surrounding lexical context
+    addStars = () =>{
+
+        // form1 : Using a function inside setState to get the previous state
+        // and return the updated state...
+
+        // this.setState({
+        //     stars: this.state.stars + 0.5
+        // })
+
+        // form2 : Using object directly inside setState
+
+        if( this.state.stars <=5 ) return;
+
+        this.setState( (prevState)=> {
+            return {
+                stars: prevState.stars + 0.5
+            }
+        })
+    }
+
+    subStars = ()=>{
+
+        if( this.state.stars <=0 ) return;
+
+        this.setState( (prevState)=>{
+            return{
+                stars: prevState.stars - 0.5
+            },
+            () => { console.log("stars: ", this.state.stars)}
+        })
+    }
+
+    handleFavourite = () => {
+        this.setState( {
+            fav : !this.state.fav
+        })
+    }
+
+    addToCartChange = () => {
+        this.setState({
+            cart : !this.state.cart
+        })
+    }
+
+
     render(){
 
         // destructuring the state object to get movies array
