@@ -15,6 +15,7 @@ class MovieList extends Component{
             // cart : false
             movies : [
                 { 
+                id : 1,    
                 title: "The Avengers", 
                 plot: "Supernatural powers shown in movie",
                 price: 199,
@@ -25,6 +26,7 @@ class MovieList extends Component{
                 poster : "https://m.media-amazon.com/images/I/71niXI3lxlL._SL1181_.jpg" 
                 },
                 {
+                id : 2,    
                 title: "The Matrix", 
                 plot: "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
                 price: 199,
@@ -35,6 +37,7 @@ class MovieList extends Component{
                 poster : "https://m.media-amazon.com/images/I/51EG732BV3L.jpg"
                 },
                 {
+                id : 3,    
                 title: "The Hulk", 
                 plot: "Bruce Banner, a scientist on the run from the U.S. Government, must find a way to cure himself of the gamma radiation that contaminated his cells and transformed him into a raging green monster.",
                 price: 199,
@@ -96,7 +99,7 @@ class MovieList extends Component{
         })
     }
 
-    subStars = ()=>{
+    subStars = (movie)=>{
 
         // if( this.state.stars <=0 ) return;
 
@@ -122,16 +125,40 @@ class MovieList extends Component{
         })
     }
 
-    handleFavourite = () => {
+    handleFavourite = (movie) => {
+
+        // Destructuring the object...
+        const{movies} = this.state;
+
+        // Get the id of the movie..
+        const movieId = movies.indexOf( movie );
+
+        movies[movieId].fav = !movies[movieId].fav;
+
+        // After changes we set the array... ( state : updated )
         this.setState( {
-            fav : !this.state.fav
+            movies : movies
         })
     }
 
-    addToCartChange = () => {
-        this.setState({
-            cart : !this.state.cart
+    addToCartChange = (movie) => {
+        // this.setState({
+        //     cart : !this.state.cart
+        // })
+
+         // Destructuring the object...
+        const{movies} = this.state;
+
+        // Get the id of the movie..
+        const movieId = movies.indexOf( movie );
+
+        movies[movieId].cart = !movies[movieId].cart;
+
+        // After changes we set the array... ( state : updated )
+        this.setState( {
+            movies : movies
         })
+
     }
 
 
@@ -146,7 +173,8 @@ class MovieList extends Component{
             { /* Iterating over the movies array using map function */}
             {
               movies.map( (movie) => (
-                <MovieCard data = {movie} increaseStar = {this.addStars} decreaseStar = {this.subStars} />
+                <MovieCard key = {movie.id} data = {movie} increaseStar = {this.addStars} decreaseStar = {this.subStars} 
+                favouriteHandle = {this.handleFavourite} cartHandle = {this.addToCartChange} />
               ))  
             }
             </>

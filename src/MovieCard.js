@@ -51,10 +51,10 @@ class MovieCard extends Component{
                     {/* { fav ? <button onClick = { this.handleFavourite } className="unfavourite-btn"> UnFavourite </button> :    
                     <button onClick = { this.handleFavourite } className="favourite-btn"> Favourite </button>} */}
 
-                    <button className = { fav ? "unfavourite-btn" : "favourite-btn"} onClick={this.handleFavourite}> 
+                    <button className = { fav ? "unfavourite-btn" : "favourite-btn"} onClick={ () => this.props.favouriteHandle( this.props.data )}> 
                     { fav ? "unfavourite" : "favourite"} </button>
                  
-                    <button onClick = {this.addToCartChange} className = { cart ? "remove-btn" : "cart-btn"}>
+                    <button onClick = { () => this.props.cartHandle( this.props.data )} className = { cart ? "remove-btn" : "cart-btn"}>
                     { cart ? "Remove" : "Add to cart"} </button>
                     </div>
                 </div>
